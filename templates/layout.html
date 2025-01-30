@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock %} | Your Portfolio</title>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    
+    {% block styles %}{% endblock %}
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg">
+      <div class="container">
+        <a class="navbar-brand" href="/">Emanuel Brito</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a 
+                class="nav-link {% if active_page == 'index' %}active{% endif %}" 
+                href="/"
+              >
+                Home
+              </a>
+            </li>
+            <li class="nav-item">
+              <a 
+                class="nav-link {% if active_page == 'projects' %}active{% endif %}" 
+                href="/projects"
+              >
+                Projects
+              </a>
+            </li>
+            <li class="nav-item">
+              <a 
+                class="nav-link {% if active_page == 'education' %}active{% endif %}" 
+                href="/education"
+              >
+                Education
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Content Block -->
+    {% block content %}{% endblock %}
+
+<!-- Footer -->
+<footer class="py-5" style="background-color: rgba(17, 24, 39, 0.95);">
+  <div class="container">
+      <div class="row g-4">
+          <!-- Name Section -->
+          <div class="col-md-4 d-flex align-items-center">
+              <a class="navbar-brand fs-3" href="/" style="color: var(--primary); font-weight: 700;">Emanuel Brito</a>
+          </div>
+
+          <!-- Navigation Links -->
+          <div class="col-md-4 d-flex justify-content-center">
+              <ul class="nav">
+                  <li class="nav-item">
+                      <a href="/" class="nav-link px-2" style="color: var(--gray);">Home</a>
+                  </li>
+                  <li class="nav-item">
+                      <a href="/projects" class="nav-link px-2" style="color: var(--gray);">Projects</a>
+                  </li>
+                  <li class="nav-item">
+                      <a href="/education" class="nav-link px-2" style="color: var(--gray);">Education</a>
+                  </li>
+              </ul>
+          </div>
+
+          <!-- Social Media & Email -->
+          <div class="col-md-4 d-flex justify-content-end">
+              <div class="d-flex flex-column align-items-end gap-3">
+                  <!-- Social Icons -->
+                  <div class="d-flex gap-3">
+                      <a href="#" class="btn btn-link" style="color: var(--gray); font-size: 1.75rem;">
+                          <i class="fab fa-linkedin"></i>
+                      </a>
+                      <a href="#" class="btn btn-link" style="color: var(--gray); font-size: 1.75rem;">
+                          <i class="fab fa-github"></i>
+                      </a>
+                  </div>
+                  
+                  <!-- Email -->
+                  <a href="mailto:ing.emanuelbrito@gmail.com" class="btn btn-link d-flex align-items-center gap-2" 
+                      style="color: var(--gray); font-size: 1rem;">
+                      <i class="fas fa-envelope" style="font-size: 1.25rem;"></i>
+                      <span>ing.emanuelbrito@gmail.com</span>
+                  </a>
+              </div>
+          </div>
+      </div>
+      
+      <!-- Copyright -->
+      <div class="row mt-5">
+          <div class="col-12 text-center">
+              <p class="mb-0" style="color: var(--gray);">&copy; 2025 Emanuel Brito. All rights reserved.</p>
+          </div>
+      </div>
+  </div>
+</footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    {% block scripts %}{% endblock %}
+</body>
+</html>
