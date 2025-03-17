@@ -1,0 +1,94 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<h1>About Me</h1>
+<div>
+    {% for me in about_me %}
+        <p>{{ me.first_name }} {{ me.last_name }}</p>
+        <p>{{ me.about_me }}</p>
+        <p>{{ me.email }}</p>
+    {% endfor %}
+</div>
+<h2>Skills</h2>
+<div>
+    {% for skill in skills %}
+        <div>
+            <p>{{ skill.skill }}</p>
+        </div>
+    {% endfor %}
+</div><br>
+
+
+<div>
+    {% for education in educations %}
+        <div>
+            <p>{{ education.degree }}</p>
+        </div>
+        <div>
+            <p>{{ education.start_date}}</p>
+            <p>{{ education.end_date }}</p>
+        </div>
+        <div>
+            {{ education.gpa }}
+        </div>
+            {% for university in universities %}
+                {% if education.university_id == university.id %}
+                <div>
+                    <p>{{ university.university_name }}</p>
+                </div>
+                {% endif %}
+        {% endfor %}
+        <p>{{ education.degree_url }}</p><br>
+    {% endfor %}
+</div>
+
+<h2>Courses</h2>
+    {% for course in courses %}
+        <div>
+            <p>{{ course.course_name }}</p>
+        </div>
+        {% for course_skill in course_skills %}
+            {% if course.id == course_skill.course_id %}
+                {% for skill in skills %}
+                    {% if course_skill.skill_id == skill.id %}
+                        <div>
+                            <p>{{ skill.skill }}</p>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+        {% endfor %}
+        {% for platform in platforms %}
+            {% if course.platform_id == platform.id %}
+                <div>
+                    <p>{{ platform.platform_name }}</p>
+                </div>
+            {% endif %}
+        {% endfor %}
+        <p>{{ course.certificate_url }}</p><br>
+    {% endfor %}
+
+<h2>Projects</h2>
+<div>
+    {% for project in projects %}
+        <div>
+            <p>{{ project.project_name }}</p>
+        </div>
+        <div>
+            <p>{{ project.project_description }}</p>
+        </div>
+        {% for project_skill in project_skills %}
+            {% if project.id == project_skill.project_id %}
+                {% for skill in skills %}
+                    {% if project_skill.skill_id == skill.id %}
+                        <div>
+                            <p>{{ skill.skill }}</p>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+        {% endfor %}
+        <p><br></p>
+    {% endfor %}
+</div>
+{% endblock %}
