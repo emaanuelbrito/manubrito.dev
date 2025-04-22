@@ -3,9 +3,59 @@ from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()
 
+
+class Levels(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    level = db.Column(db.String(25), unique=True, nullable=False)
+
+    def __str__(self):
+        return "Level: {}".format(self.level)
+    
+    def serialize(self):
+        return {
+            "id": self.id,
+            "level": self.level
+        }
+
+
+class Technologies(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    technology_name = db.Column(db.String(25), unique=True, nullable=False)
+    type = db.Column(db.String(25), nullable=False)
+    level_id = db.Column(db.Integer, db.ForeignKey('levels.id'), nullable=False) 
+
+    def __str__(self):
+        return "Technology: {}".format(self.technology_name)
+    
+    def serialize(self):
+        return {
+            "id": self.id,
+            "technology_name": self.technology_name,
+            "type": self.type,
+            "level_id": self.level_id
+        }
+
+
+class Tools(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    tool_name = db.Column(db.String(25), unique=True, nullable=False)
+    level_id = db.Column(db.Integer, db.ForeignKey('levels.id'), nullable=False) 
+
+    def __str__(self):
+        return "Tool: {}".format(self.tool_name)
+    
+    def serialize(self):
+        return {
+            "id": self.id,
+            "tool_name": self.tool_name,
+            "level_id": self.level_id
+        }
+
+
 class Skills(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     skill = db.Column(db.String(25), unique=True, nullable=False)
+    level_id = db.Column(db.Integer, db.ForeignKey('levels.id'), nullable=False) 
 
     def __str__(self):
         return "Skill: {}".format(self.skill)
@@ -13,7 +63,8 @@ class Skills(db.Model):
     def serialize(self):
         return {
             "id": self.id,
-            "skill": self.skill
+            "skill": self.skill,
+            "level_id": self.level_id
         }
 
 
@@ -31,6 +82,30 @@ class Universities(db.Model):
             "university_city": self.university_city,
             "university_state": self.university_state,
             "university_country": self.university_country
+        }
+
+
+class Course_Technologies(db.Model):
+    __tablename__ = 'course_technologies'
+    course_id = db.Column(db.Integer, db.ForeignKey('courses.id'), primary_key=True)
+    technology_id = db.Column(db.Integer, db.ForeignKey('technologies.id'), primary_key=True)
+
+    def serialize(self):
+        return {
+            "course_id": self.course_id,
+            "technology_id": self.technology_id
+        }
+
+
+class Course_Tools(db.Model):
+    __tablename__ = 'course_tools'
+    course_id = db.Column(db.Integer, db.ForeignKey('courses.id'), primary_key=True)
+    tool_id = db.Column(db.Integer, db.ForeignKey('tools.id'), primary_key=True)
+
+    def serialize(self):
+        return {
+            "course_id": self.course_id,
+            "tool_id": self.tool_id
         }
 
 
@@ -108,6 +183,30 @@ class Projects(db.Model):
         }
 
 
+class Projects_Technologies(db.Model):
+    __tablename__ = 'projects_technologies'
+    project_id = db.Column(db.Integer, db.ForeignKey('projects.id'), primary_key=True)
+    technology_id = db.Column(db.Integer, db.ForeignKey('technologies.id'), primary_key=True)
+
+    def serialize(self):
+        return {
+            "project_id": self.project_id,
+            "technology_id": self.technology_id
+        }
+
+
+class Projects_Tools(db.Model):
+    __tablename__ = 'projects_tools'
+    project_id = db.Column(db.Integer, db.ForeignKey('projects.id'), primary_key=True)
+    tool_id = db.Column(db.Integer, db.ForeignKey('tools.id'), primary_key=True)
+
+    def serialize(self):
+        return {
+            "project_id": self.project_id,
+            "tool_id": self.tool_id
+        }
+
+
 class Projects_Skills(db.Model):
     __tablename__ = 'projects_skills'
     project_id = db.Column(db.Integer, db.ForeignKey('projects.id'), primary_key=True)
@@ -119,14 +218,15 @@ class Projects_Skills(db.Model):
             "skill_id": self.skill_id
         }
 
+
 class About_Me(db.Model):
     __tablename__ = 'about_me'
     id = db.Column(db.Integer, primary_key=True)
     first_name = db.Column(db.String(25), nullable=False)
     last_name = db.Column(db.String(25), nullable=False)
     email = db.Column(db.String(50), nullable=False)
-    phone = db.Column(db.String(15), nullable=False)
     about_me = db.Column(db.String(500), nullable=False)
+    start_date = db.Column(db.String(15), nullable=False)
 
     def serialize(self):
         return {
@@ -134,6 +234,6 @@ class About_Me(db.Model):
             "first_name": self.first_name,
             "last_name": self.last_name,
             "email": self.email,
-            "phone": self.phone,
-            "about_me": self.about_me
+            "about_me": self.about_me,
+            "start_date": self.start_date
         }

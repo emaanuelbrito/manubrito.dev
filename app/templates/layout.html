@@ -2,11 +2,59 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="{{url_for('static', filename='css/main.css')}}">
-  <title>ManubritoDev</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="stylesheet" href="{{ url_for('static', filename='src/output.css') }}">
+
+  <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <title>MANUBRITODEV</title>
 </head>
-<body>
+<body class="bg-primary h-[3450px]">
+  <header>
+    <nav>
+      <div class="container mx-auto flex items-center justify-between px-3 py-3 font-[Roboto]">
+        <!-- Logo / Marca -->
+        <a href="#" class="text-2xl font-black font-title text-accent">
+          MANUBRITODEV
+        </a>
+    
+        <!-- Botón mobile: sólo visible < md -->
+        <button
+          id="nav-toggle"
+          class="md:hidden focus:outline-none"
+          aria-label="Abrir menú"
+          aria-expanded="false"
+          aria-controls="nav-menu"
+        >
+          <i class="fa-solid fa-bars fa-2x" style="color: #a0a0a0;"></i>
+        </button>
+    
+        <!-- Menú de enlaces -->
+        <ul
+          id="nav-menu"
+          class="hidden md:flex space-x-6 text-text"
+        >
+          <li><a href="#" class="font-black font-[Roboto] hover:text-accent">PROYECTOS</a></li>
+          <li><a href="#" class="font-black font-[Roboto] hover:text-accent">ESTUDIOS</a></li>
+          <li><a href="#" class="font-black font-[Roboto] hover:text-accent">SOBRE MI</a></li>
+        </ul>
+      </div>
+    
+      <!-- Opcional: menú “dropdown” para móvil -->
+      <ul
+        id="nav-menu-mobile"
+        class="md:hidden bg-gray-800 space-y-2 px-4 pb-4 hidden"
+      >
+        <li><a href="#" class="block py-2 font-black font-[Roboto] hover:text-accent">PROYECTOS</a></li>
+        <li><a href="#" class="block py-2 font-black font-[Roboto] hover:text-accent">ESTUDIOS</a></li>
+        <li><a href="#" class="block py-2 font-black font-[Roboto] hover:text-accent">SOBRE MI</a></li>
+      </ul>
+    </nav>
+  </header>
   {% block content %}{% endblock %}
 </body>
 </html>

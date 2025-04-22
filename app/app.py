@@ -1,6 +1,8 @@
 import logging
 from flask import Flask, request, render_template, jsonify
-from Models import db, Skills, Universities, Course_Skills, Courses, Education, Platforms, Projects, Projects_Skills, About_Me
+from datetime import date
+from Models import db
+from data_service import get_all_data, calculate_experience
 import os
 
 app = Flask(__name__)
@@ -25,40 +27,18 @@ def after_request(response):
     return response
 
 
-
 # Routes start here
-
 @app.route("/")
 def index():
     try:
-        # Get data from the database
-        about_me = About_Me.query.all()
-        skills = Skills.query.all()
-        universities = Universities.query.all()
-        course_skills = Course_Skills.query.all()
-        courses = Courses.query.all()
-        education = Education.query.all()
-        platforms = Platforms.query.all()
-        projects = Projects.query.all()
-        projects_skills = Projects_Skills.query.all()
-        
-
-        about_me_list = [me.serialize() for me in about_me]
-        skills_list = [skill.serialize() for skill in skills]
-        universities_list = [university.serialize() for university in universities]
-        course_skills_list = [course_skill.serialize() for course_skill in course_skills]
-        courses_list = [course.serialize() for course in courses]
-        education_list = [edu.serialize() for edu in education]
-        platforms_list = [platform.serialize() for platform in platforms]
-        projects_list = [project.serialize() for project in projects]
-        projects_skills_list = [project_skill.serialize() for project_skill in projects_skills]
-
-        return render_template("index.html", about_me=about_me_list, skills=skills_list, universities=universities_list, course_skills=course_skills_list,
-                            courses=courses_list, educations=education_list, platforms=platforms_list, projects=projects_list,
-                            project_skills=projects_skills_list), 200
-    except Exception:
-        logger.exception("[SERVER]: Error retrieving data")
-        return jsonify({"message": "An internal error occurred"}), 500
+        context = get_all_data()
+        start_date = date(2024, 9, 1)
+        experience = calculate_experience(start_date)
+        context.update({"experience": experience, "current_date": date.today()})
+        return render_template("index.html", **context), 200
+    except Exception as e:
+        logger.error(f"[SERVER]: Error retrieving data")
+        return render_template("index.html", context=(jsonify({"error": "Error retrieving data"}))), 500
 
 
 if __name__ == "__main__":
