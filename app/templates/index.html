@@ -1,0 +1,276 @@
+{# templates/index.html #}
+
+{% extends "layout.html" %}
+
+{% block content %}
+<!-- Sección Principal -->
+<section class="container flex flex-col mx-auto items-center md:mt-32 mt-24 py-16 md:space-y-28 space-y-24 text-white">
+    <!-- Contenedor principal: columna en móvil, fila en md+ -->
+    <div class="flex flex-col items-center text-center space-y-8">
+
+        <!-- Bloque foto + nombre, rol y contacto -->
+        <div class="flex flex-wrap justify-center items-center">
+            {% for me in about_me %}
+
+                <!-- Foto -->
+                <figure class="w-40 h-40">
+                    <img src="{{ url_for('static', filename='images/foto_personal.jpeg') }}" 
+                        alt="Foto de {{ me.first_name }} {{ me.last_name }}"
+                        width="150" height="150"
+                        class="rounded-full object-cover w-full h-full">
+                    <figcaption class="sr-only">Foto de perfil de {{ me.first_name }} {{ me.last_name }}</figcaption>
+                </figure>
+                
+                <div class="flex flex-col space-y-6 px-4">
+                    <div class="text-center md:text-left space-y-2 font-title">
+                        <h1 class="text-5xl md:text-5xl font-black text-white">{{ me.first_name }} {{ me.last_name }}</h1>
+                        <h2 class="text-3xl md:text-3xl font-semibold text-accent">Desarrollador Backend</h2>
+                    </div>
+                    
+                    <!-- Botones de contacto -->
+                    <div class="flex flex-wrap justify-center md:justify-start items-center gap-4 font-[Roboto]">
+                        <a href="mailto:{{ me.email }}"
+                            class="flex items-center px-4 py-2 bg-accent bg-opacity-50 rounded-full space-x-2 text-white">
+                            <i class="fa-regular fa-envelope"></i>
+                            <span class="font-bold">{{ me.email }}</span>
+                        </a>
+                        <div class="flex items-center gap-4">
+                            <a href="https://drive.google.com/file/d/1L7eqF6EgcnOOIEloHbRyTGmkZki0PNI_/view?usp=sharing" aria-label="Descargar CV" class="p-2 border-2 border-accent rounded-full">
+                                <i class="fa-solid fa-file-lines fa-lg text-accent"></i>
+                            </a>
+                            <a href="https://www.linkedin.com/in/emaanuelbrito/" aria-label="LinkedIn" class="p-2 border-2 border-accent rounded-full">
+                                <i class="fa-brands fa-linkedin fa-lg text-accent"></i>
+                            </a>
+                            <a href="https://github.com/emaanuelbrito" aria-label="GitHub" class="p-2 border-2 border-accent rounded-full">
+                                <i class="fa-brands fa-github fa-lg text-accent"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+        </div>
+
+        <!-- Bloque estadísticas y resumen-->
+        <div class="flex flex-col items-center md:items-center space-y-6 max-w-2xl text-center md:text-center">
+            <div class="flex flex-col sm:flex-row items-center sm:items-start justify-center sm:justify-start gap-8 font-title">
+                <div class="flex items-baseline space-x-2">
+                    <span class="lg:text-4xl text-3xl font-black text-accent">{{ experience.months }}</span>
+                    <span class="lg:text-2xl text-2xl font-medium text-white">Meses de experiencia</span>
+                </div>
+                <div class="flex items-baseline space-x-2">
+                    <span class="text-4xl font-black text-accent">{{ projects_count }}</span>
+                    <span class="text-2xl font-medium text-white">Proyectos realizados</span>
+                </div>
+            </div>
+            <p class="text-base md:text-lg leading-relaxed text-white font-[Roboto]">
+                {{ me.about_me | e }}
+            </p>
+        </div>
+            {% endfor %}
+    </div>
+
+    <!-- Sección tecnologías -->
+    <section id="tech" class="mt">
+        <ul class="flex flex-wrap items-center justify-center gap-4">
+        {% for tech in technologies %}
+            {% for level in levels %}
+                {% if level.id == tech.level_id %}
+                    {% if level.level == "Intermedio" %}
+                        <li class="flex items-center space-x-2 px-4 py-2">
+                            <img
+                            loading="lazy"
+                            src="{{ url_for('static', filename='images/tech/' ~ tech.technology_name ~ '.svg') }}"
+                            alt="{{ tech.technology_name }} logo"
+                            class="w-8 h-8"
+                            >
+                            <div class="flex flex-col leading-tight font-[Roboto]">
+                                <span class="font-semibold">{{ tech.technology_name }}</span>
+                            </div>
+                        </li>
+                    {% endif %} 
+                {% endif %}
+            {% endfor %}
+        {% endfor %}
+        </ul>
+    </section>
+</section>
+
+<!-- Sección de Proyectos -->
+<section id="proyectos" class="container flex flex-col mx-auto justify-between py-16 text-white sm:space-y-14 space-y-5">
+    <div class="flex flex-col items-start justify-start">
+        <h1 class="font-title text-3xl font-black text-white px-3">Proyectos</h1>
+    </div>
+
+    <!-- Contenedor Principal -->
+    <div class="flex flex-wrap items-center justify-center gap-14">
+        {% for project in projects %}
+            <!-- Tarjeta de proyecto -->
+            <div class="w-[320px] h-[475px] bg-secondary rounded-2xl border-2 border-accent">
+                <!-- Imagen del proyecto -->
+                <div class="flex items-center justify-center my-6">
+                    <div class="w-[270px] h-[175px] rounded-2xl">
+                        <img src="{{ url_for('static', filename='images/projects/' ~ project.project_name ~ '.png') }}" alt="" class="w-full h-full rounded-2xl">
+                    </div>
+                </div>
+                <div class="mx-3">
+                    <!-- Descripciones -->
+                    <div class="flex flex-col items-start justify-center gap-1">
+                        <h3 class="font-title font-black text-2xl">{{ project.project_name }}</h3>
+                        <p class="font-[Roboto] text-lg">{{ project.project_description }}</p>
+                    </div>
+
+                    <!-- Project Technologies -->
+                    <div>
+                        <ul class="flex items-center justify-start gap-2 mt-4">
+                            {# Muestra hasta display_limit badges #}
+                            {% for tech in project.techs[:display_limit] %}
+                                <div class="p-2 border-2 border-text bg-primary rounded-3xl text-accent font-bold">
+                                    <li class="">
+                                    {{ tech.technology_name }}
+                                    </li>
+                                </div>
+                                
+                            {% endfor %}
+                        
+                            {# Si hay más, muestra “+N” #}
+                            {% set extra = project.techs|length - display_limit %}
+                            {% if extra > 0 %}
+                                <li class="p-2 border-2 border-text bg-primary rounded-3xl text-accent font-bold">
+                                +{{ extra }}
+                                </li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                    <!-- Botones -->
+                    <div class="flex items-center justify-center gap-4 mt-6">
+                        <a href="#" class="flex items-center justify-center p-2 bg-accent rounded-full w-14 h-10">
+                            <i class="fa-solid fa-link fa-xl" style="color: #121212;"></i>
+                        </a>
+                        <a href="{{ project.project_repository }}" aria-label="GitHub" class="flex items-center justify-center p-2 bg-accent rounded-full w-14 h-10">
+                            <i class="fa-brands fa-github fa-xl" style="color: #121212;"></i>
+                        </a>
+                    </div>
+                </div>
+                <div>
+                    <a href="" class=""></a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</section>
+
+<!-- Sección Educación-->
+<section id="estudios" class="container flex flex-col mx-auto justify-between py-16 text-white space-y-8">
+    <div class="space-y-6 px-3">
+        <h1 class="font-title text-3xl font-black text-white">Estudios</h1>
+    </div>
+
+    <!-- Educación Formal-->
+    <div class="px-3">
+        <h2 class="font-title text-2xl font-black text-white">Educación Formal</h2>
+        <div class="h-1 bg-text"></div>
+        <div class="flex flex-wrap items-center justify-center gap-6 sm:gap-24">
+            {% for edu in education %}
+                <div class="flex flex-col justify-center ap-2 mt-4 bg-secondary border-2 border-accent p-4 m-2 rounded-2xl w-[500px] sm:h-[135px] h-[150px]">
+                    <h2 class="font-title font-black text-white text-2xl">{{ edu.degree }}</h2>
+                    {% for university in universities %}
+                        {% if university.id == edu.university_id %}
+                            <h4 class="font-[Roboto] font-light text-text text-lg">{{ university.university_name }}</h4>
+                        {% endif %}
+                    {% endfor %}
+                    <div class="flex justify-start items-center sm:space-x-14 space-x-4">
+                        <div>
+                            <i class="fa-solid fa-star" style="color: #00ff88;"></i>
+                            <span class="font-[Roboto] font-medium text-white text-lg">{{ edu.gpa }}</span>
+                        </div>
+                        <div>
+                            <i class="fa-solid fa-calendar-days" style="color: #00ff88;"></i>
+                            <span class="font-[Roboto] font-medium text-white text-lg">{{ edu.start_date }} - {{ edu.end_date }}</span>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    
+    <!-- Cursos -->
+    <div class="px-3">
+        <h2 class="font-title text-2xl font-black text-white">Cursos</h2>
+        <div class="h-1 bg-text"></div>
+    </div>
+    
+    <div class="relative w-full">
+        <!-- Botón Izquierdo -->
+        <button
+            id="scrollLeft"
+            class="absolute left-0 top-1/2 transform -translate-y-1/2 bg-accent text-white p-2 rounded-full z-10 hover:bg-gray-700">
+            &#8592;
+        </button>
+
+        <!-- Contenedor scrollable -->
+        <div id="carousel" class="overflow-x-auto scroll-smooth flex space-x-4 p-4 w-full">
+            <!-- Tarjetas de cursos -->
+            {% for course in courses %}
+            <div class="min-w-[250px] bg-secondary rounded-2xl border-2 border-accent shadow-md p-4 flex-shrink-0 w-[235px] h-[300px]">
+                <div class="h-3/5">
+                    <h3 class="text-lg font-title font-semibold mb-2">{{ course.course_name }}</h3>
+                    <p class="text-text font-[Roboto] text-sm">{{ course.course_description }}</p>
+                    
+                </div>
+                
+                <div class="h-1/5">
+                    {% for platform in platforms %}
+                        {% if platform.id == course.platform_id %}
+                            <h4 class="font-[Roboto] font-semibold text-white text-sm">{{ platform.platform_name }}</h4>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+
+                <div class="flex items-center justify-center h-1/5">
+                    <button>
+                        <a href="{{ course.certificate_url }}" 
+                        class="flex items-center justify-center p-2 bg-accent rounded-full w-24 h-10 font-[Roboto] text-primary font-black">
+                            Certificado
+                        </a>
+                    </button>
+                </div>
+                
+            </div>
+            {% endfor %}
+        <!-- Botón Derecho -->
+        <button
+            id="scrollRight"
+            class="absolute right-0 top-1/2 transform -translate-y-1/2 bg-accent     text-white p-2 rounded-full z-10 hover:bg-gray-700">
+            &#8594;
+        </button>
+        </div>
+    </div>
+</section>
+
+<section id="sobre_mi" class="container flex flex-col mx-auto justify-between py-16 text-white space-y-6 px-3">
+    <h1 class="font-title text-3xl font-black text-white">Sobre Mi</h1>
+    <div>
+        <p class="font-[Roboto] text-lg">
+            Mi nombre es Emanuel Brito. Estoy comenzando mi camino como  desarrollador de software, específicamente en el área del desarrollo  backend, 
+            aunque con conocimientos básicos de frontend. Cuento con  un título universitario como Ingeniero Civil, el cual obtuve en 2021.  
+            Por diversas razones, incluida la pandemia, no pude ejercer mucho tiempo esa profesión, 
+            lo cual me llevó a trabajar en otras áreas como dibujo  naval, ventas y entrada de datos.<br>
+            <br>
+
+            Considero que mi formación  profesional durante la carrera de Ingeniería Civil, junto con las  posteriores experiencias laborales, 
+            me han convertido en una persona con pensamiento lógico y organizada, capaz de considerar múltiples  soluciones ante una situación.<br>
+            <br>
+
+            En marzo de 2025 me convertí en  aspirante a estudios regulares en Ingeniería de Sistemas, lo más cercano a ingeniería de software 
+            que existe en el estado donde.<br>
+            <br>
+
+            Para mi, este es un viaje que estuve postergando, aun antes de empezar a estudiar ingeniería civil, 
+            consideraba que debía estudiar ingeniería de sistemas.<br>
+            <br>
+
+            Sin embargo, tome la decision de no seguir postergando uno de mis suenos y desde 2024 comencé de manera 
+            autodidacta a estudiar sobre el desarrollo de software y Ciberseguridad. Hasta el momento ha sido un viaje emocionante y de redescubrimiento.<br>
+        </p>
+    </div>
+</section>
+{% endblock %}
