@@ -13,7 +13,7 @@
 
   <title>MANUBRITODEV</title>
 </head>
-<body class="bg-primary h-[3450px]">
+<body class="bg-primary">
   <header>
     <nav>
       <div class="container mx-auto flex items-center justify-between px-3 py-3 font-[Roboto]">
@@ -56,6 +56,72 @@
     </nav>
   </header>
   {% block content %}{% endblock %}
-  <footer></footer>
+  <footer>
+    <div class="container mx-auto flex flex-col items-center justify-center px-3 py-3 space-y-4 font-[Roboto]">
+      <a href="#" class="text-2xl font-black font-title text-accent">
+      MANUBRITODEV
+      </a>
+      <!-- Botones de contacto -->
+      {% for me in about_me %}
+        <div class="flex flex-wrap justify-center md:justify-start items-center gap-4 font-[Roboto]">
+          <a href="mailto:{{ me.email }}"
+              class="flex items-center px-4 py-2 bg-accent bg-opacity-50 rounded-full space-x-2 text-white">
+              <i class="fa-regular fa-envelope"></i>
+              <span class="font-bold">{{ me.email }}</span>
+          </a>
+          <div class="flex items-center gap-4">
+              <a href="https://drive.google.com/file/d/1L7eqF6EgcnOOIEloHbRyTGmkZki0PNI_/view?usp=sharing" aria-label="Descargar CV" class="p-2 border-2 border-accent rounded-full">
+                  <i class="fa-solid fa-file-lines fa-lg text-accent"></i>
+              </a>
+              <a href="https://www.linkedin.com/in/emaanuelbrito/" aria-label="LinkedIn" class="p-2 border-2 border-accent rounded-full">
+                  <i class="fa-brands fa-linkedin fa-lg text-accent"></i>
+              </a>
+              <a href="https://github.com/emaanuelbrito" aria-label="GitHub" class="p-2 border-2 border-accent rounded-full">
+                  <i class="fa-brands fa-github fa-lg text-accent"></i>
+              </a>
+          </div>
+
+        </div>
+      {% endfor %}
+
+      <!-- Botón mobile: sólo visible < md -->
+        <button
+          id="footer-toggle"
+          class="md:hidden focus:outline-none"
+          aria-label="Abrir menú"
+          aria-expanded="false"
+          aria-controls="nav-menu"
+        >
+          <i class="fa-solid fa-bars fa-2x" style="color: #a0a0a0;"></i>
+        </button>
+    
+        <!-- Menú de enlaces -->
+        <ul
+          id="footer-menu"
+          class="hidden md:flex space-x-6 text-text"
+        >
+          <li><a href="#proyectos" class="font-black font-[Roboto] hover:text-accent">PROYECTOS</a></li>
+          <li><a href="#estudios" class="font-black font-[Roboto] hover:text-accent">ESTUDIOS</a></li>
+          <li><a href="#sobre_mi" class="font-black font-[Roboto] hover:text-accent">SOBRE MI</a></li>
+      </ul>
+    
+      <!-- Opcional: menú “dropdown” para móvil -->
+      <ul
+        id="footer-menu-mobile"
+        class="md:hidden bg-gray-800 space-y-2 px-4 pb-4 hidden"
+      >
+        <li><a href="#" class="block py-2 font-black font-[Roboto] hover:text-accent">PROYECTOS</a></li>
+        <li><a href="#" class="block py-2 font-black font-[Roboto] hover:text-accent">ESTUDIOS</a></li>
+        <li><a href="#" class="block py-2 font-black font-[Roboto] hover:text-accent">SOBRE MI</a></li>
+      </ul>
+
+      <div>
+        <p class="text-text text-sm font-[Roboto]">
+          &copy; 2025 MANUBRITODEV. Todos los derechos reservados. 
+        </p>
+      </div>
+    </div>
+    
+  </footer>
 </body>
 </html>

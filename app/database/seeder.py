@@ -45,6 +45,8 @@ def create_table():
             id INTEGER,
             project_name TEXT NOT NULL UNIQUE,
             project_description TEXT NOT NULL,
+            project_url TEXT NOT NULL,
+            project_repository TEXT NOT NULL,
             PRIMARY KEY (id)
         )""")
     cursor.execute("""CREATE TABLE IF NOT EXISTS projects_skills (
@@ -368,10 +370,10 @@ def add_course_skills():
 def add_projects():
     conn = sql.connect(DB_PATH)
     cursor = conn.cursor()
-    projects = [(1, "manubritodev", "Personal website to showcase my projects and skills"),
-                (2, "Password Generator", "Simple password generator using Python")]
+    projects = [(1, "manubritodev", "Personal website to showcase my projects and skills", "por desplegar", "https://github.com/emaanuelbrito/manubrito.dev/"),
+                (2, "Password Generator", "Simple password generator using Python", "por desplegar", "https://github.com/emaanuelbrito/password_generator")]
     for project in projects:
-        cursor.execute("INSERT OR IGNORE INTO projects (id, project_name, project_description) VALUES (?, ?, ?)", project)
+        cursor.execute("INSERT OR IGNORE INTO projects (id, project_name, project_description, project_url, project_repository) VALUES (?, ?, ?, ?, ?)", project)
     conn.commit() 
     conn.close()
 

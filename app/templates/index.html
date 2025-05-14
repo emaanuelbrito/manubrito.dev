@@ -35,13 +35,13 @@
                             <span class="font-bold">{{ me.email }}</span>
                         </a>
                         <div class="flex items-center gap-4">
-                            <a href="{{ me.cv_url }}" aria-label="Descargar CV" class="p-2 border-2 border-accent rounded-full">
+                            <a href="https://drive.google.com/file/d/1L7eqF6EgcnOOIEloHbRyTGmkZki0PNI_/view?usp=sharing" aria-label="Descargar CV" class="p-2 border-2 border-accent rounded-full">
                                 <i class="fa-solid fa-file-lines fa-lg text-accent"></i>
                             </a>
-                            <a href="{{ me.linkedin_url }}" aria-label="LinkedIn" class="p-2 border-2 border-accent rounded-full">
+                            <a href="https://www.linkedin.com/in/emaanuelbrito/" aria-label="LinkedIn" class="p-2 border-2 border-accent rounded-full">
                                 <i class="fa-brands fa-linkedin fa-lg text-accent"></i>
                             </a>
-                            <a href="{{ me.github_url }}" aria-label="GitHub" class="p-2 border-2 border-accent rounded-full">
+                            <a href="https://github.com/emaanuelbrito" aria-label="GitHub" class="p-2 border-2 border-accent rounded-full">
                                 <i class="fa-brands fa-github fa-lg text-accent"></i>
                             </a>
                         </div>
@@ -107,7 +107,9 @@
             <div class="w-[320px] h-[475px] bg-secondary rounded-2xl border-2 border-accent">
                 <!-- Imagen del proyecto -->
                 <div class="flex items-center justify-center my-6">
-                    <div class="w-[270px] h-[175px] bg-slate-500 rounded-2xl"></div>
+                    <div class="w-[270px] h-[175px] rounded-2xl">
+                        <img src="{{ url_for('static', filename='images/projects/' ~ project.project_name ~ '.png') }}" alt="" class="w-full h-full rounded-2xl">
+                    </div>
                 </div>
                 <div class="mx-3">
                     <!-- Descripciones -->
@@ -140,10 +142,10 @@
                     </div>
                     <!-- Botones -->
                     <div class="flex items-center justify-center gap-4 mt-6">
-                        <a href="" class="flex items-center justify-center p-2 bg-accent rounded-full w-14 h-10">
+                        <a href="#" class="flex items-center justify-center p-2 bg-accent rounded-full w-14 h-10">
                             <i class="fa-solid fa-link fa-xl" style="color: #121212;"></i>
                         </a>
-                        <a href="" aria-label="GitHub" class="flex items-center justify-center p-2 bg-accent rounded-full w-14 h-10">
+                        <a href="{{ project.project_repository }}" aria-label="GitHub" class="flex items-center justify-center p-2 bg-accent rounded-full w-14 h-10">
                             <i class="fa-brands fa-github fa-xl" style="color: #121212;"></i>
                         </a>
                     </div>

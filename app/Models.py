@@ -174,12 +174,16 @@ class Projects(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     project_name = db.Column(db.String(50), nullable=False)
     project_description = db.Column(db.String(200), nullable=False)
+    project_url = db.Column(db.String(200), nullable=False)
+    project_repository = db.Column(db.String(200), nullable=False)
 
     def serialize(self):
         return {
             "id": self.id,
             "project_name": self.project_name,
-            "project_description": self.project_description
+            "project_description": self.project_description,
+            "project_url": self.project_url,
+            "project_repository": self.project_repository
         }
 
 
