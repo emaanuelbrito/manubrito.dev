@@ -47,11 +47,11 @@
       <!-- Opcional: menú “dropdown” para móvil -->
       <ul
         id="nav-menu-mobile"
-        class="md:hidden bg-gray-800 space-y-2 px-4 pb-4 hidden"
+        class="md:hidden bg-primary text-text space-y-2 px-4 pb-4 hidden"
       >
-        <li><a href="#" class="block py-2 font-black font-[Roboto] hover:text-accent">PROYECTOS</a></li>
-        <li><a href="#" class="block py-2 font-black font-[Roboto] hover:text-accent">ESTUDIOS</a></li>
-        <li><a href="#" class="block py-2 font-black font-[Roboto] hover:text-accent">SOBRE MI</a></li>
+        <li><a href="#proyectos" class="block py-2 font-black font-[Roboto] hover:text-accent">PROYECTOS</a></li>
+        <li><a href="#estudios" class="block py-2 font-black font-[Roboto] hover:text-accent">ESTUDIOS</a></li>
+        <li><a href="#sobre_mi" class="block py-2 font-black font-[Roboto] hover:text-accent">SOBRE MI</a></li>
       </ul>
     </nav>
   </header>
@@ -83,37 +83,6 @@
 
         </div>
       {% endfor %}
-
-      <!-- Botón mobile: sólo visible < md -->
-        <button
-          id="footer-toggle"
-          class="md:hidden focus:outline-none"
-          aria-label="Abrir menú"
-          aria-expanded="false"
-          aria-controls="nav-menu"
-        >
-          <i class="fa-solid fa-bars fa-2x" style="color: #a0a0a0;"></i>
-        </button>
-    
-        <!-- Menú de enlaces -->
-        <ul
-          id="footer-menu"
-          class="hidden md:flex space-x-6 text-text"
-        >
-          <li><a href="#proyectos" class="font-black font-[Roboto] hover:text-accent">PROYECTOS</a></li>
-          <li><a href="#estudios" class="font-black font-[Roboto] hover:text-accent">ESTUDIOS</a></li>
-          <li><a href="#sobre_mi" class="font-black font-[Roboto] hover:text-accent">SOBRE MI</a></li>
-      </ul>
-    
-      <!-- Opcional: menú “dropdown” para móvil -->
-      <ul
-        id="footer-menu-mobile"
-        class="md:hidden bg-gray-800 space-y-2 px-4 pb-4 hidden"
-      >
-        <li><a href="#" class="block py-2 font-black font-[Roboto] hover:text-accent">PROYECTOS</a></li>
-        <li><a href="#" class="block py-2 font-black font-[Roboto] hover:text-accent">ESTUDIOS</a></li>
-        <li><a href="#" class="block py-2 font-black font-[Roboto] hover:text-accent">SOBRE MI</a></li>
-      </ul>
 
       <div>
         <p class="text-text text-sm font-[Roboto]">

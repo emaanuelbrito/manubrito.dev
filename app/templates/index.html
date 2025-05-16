@@ -273,4 +273,31 @@
         </p>
     </div>
 </section>
+
+<script>
+
+      // Toggle de menú móvil
+    const btn = document.getElementById('nav-toggle');
+    const menu = document.getElementById('nav-menu-mobile');
+
+    btn.addEventListener('click', () => {
+        const isOpen = btn.getAttribute('aria-expanded') === 'true';
+        btn.setAttribute('aria-expanded', String(!isOpen));
+        menu.classList.toggle('hidden');
+    });
+
+    const carousel = document.getElementById("carousel");
+    const scrollLeft = document.getElementById("scrollLeft");
+    const scrollRight = document.getElementById("scrollRight");
+
+  const scrollAmount = 300; // cantidad de píxeles que se desplazará
+
+    scrollLeft.addEventListener("click", () => {
+        carousel.scrollBy({ left: -scrollAmount, behavior: "smooth" });
+    });
+
+    scrollRight.addEventListener("click", () => {
+        carousel.scrollBy({ left: scrollAmount, behavior: "smooth" });
+    });
+</script>
 {% endblock %}
