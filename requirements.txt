@@ -101,7 +101,7 @@ pyzmq==26.2.1
 referencing==0.36.2
 repolib==2.2.1
 repoman==1.4.0
-requests==2.25.1
+requests==2.32.2
 rpds-py==0.22.3
 SecretStorage==3.3.1
 sessioninstaller==0.0.0
