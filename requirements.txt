@@ -73,7 +73,7 @@ pipreqs==0.5.0
 platformdirs==4.3.6
 pop-transition==1.1.2
 prompt_toolkit==3.0.50
-protobuf==3.12.4
+protobuf==3.18.3
 ptyprocess==0.7.0
 pure_eval==0.2.3
 pycairo==1.20.1
